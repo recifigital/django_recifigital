@@ -1,0 +1,89 @@
+{% extends 'mlp.recifigital/base.html' %}
+{% block conteudo %}
+<style>
+    .excluir-container {
+        max-width: 500px;
+        margin: 50px auto;
+        background: white;
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        font-weight: bold;
+        border-radius: 8px;
+    }
+
+    .excluir-container h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    .excluir-container label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .excluir-container input[type="password"] {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .excluir-container .btn-confirmar {
+        width: 100%;
+        padding: 12px 0;
+        background-color: #d32f2f;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+
+    .excluir-container .btn-confirmar:hover {
+        background-color: #b71c1c;
+    }
+
+    .excluir-container .link-cancelar {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: #555;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .excluir-container .error-message {
+        color: #d9534f;
+        background-color: #f2dede;
+        border: 1px solid #ebccd1;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        font-size: 16px;
+        text-align: center;
+    }
+</style>
+
+<div class="excluir-container">
+    <h2>Excluir usuário: {{ usuario.nome }}</h2>
+
+    {% if erro %}
+        <p class="error-message">{{ erro }}</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label>Digite sua senha para confirmar:</label>
+        <input type="password" name="senha" required>
+
+        <button type="submit" class="btn-confirmar">Confirmar Exclusão</button>
+        <a href="{% url 'listagem_usuarios' %}" class="link-cancelar">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

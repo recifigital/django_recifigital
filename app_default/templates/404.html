@@ -1,0 +1,48 @@
+{% extends 'mlp.recifigital/base.html' %}
+{% block conteudo %}
+<style>
+    .erro-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 80vh;
+        color: #333;
+    }
+
+    .erro-container h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #000;
+    }
+
+    .erro-container p {
+        font-size: 18px;
+        margin-bottom: 30px;
+        color: #555;
+        max-width: 500px;
+    }
+
+    .erro-container button {
+        background-color: #000;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+
+    .erro-container button:hover {
+        background-color: #333;
+    }
+</style>
+
+<div class="erro-container">
+    <h1>Página não encontrada.</h1>
+    <p>Parece que a página que você procura não existe. Verifique o endereço digitado.</p>
+    <button onclick="window.location.href='/'">IR PARA PÁGINA INICIAL</button>
+</div>
+{% endblock %}

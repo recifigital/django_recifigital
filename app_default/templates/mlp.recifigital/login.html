@@ -1,0 +1,35 @@
+{% extends 'mlp.recifigital/base.html' %}
+{% block conteudo %}
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="form-container">
+        <h2>Entre na sua conta</h2>
+
+        <!-- Mensagem acima do input nome -->
+        <div style="min-height:24px">
+            {% if erro_nome %}
+                {% if erro_nome == "Sua conta ainda está aguardando aprovação do administrador." %}
+                    <p style="color:green">{{ erro_nome }}</p>
+                {% else %}
+                    <p style="color:red">{{ erro_nome }}</p>
+                {% endif %}
+            {% endif %}
+        </div>
+        Nome de usuário:
+        <input name="nome" type="text" required>
+
+        <!-- Mensagem de erro acima da senha -->
+        <div style="min-height:24px">
+            {% if erro_senha %}
+                <p style="color:red">{{ erro_senha }}</p>
+            {% endif %}
+        </div>
+        Senha:
+        <input name="senha" type="password" required>
+
+        <button>ENVIAR</button>
+
+        <p>Não tem login? <a href="{% url 'registrar' %}">Fazer cadastro</a></p>
+    </div>
+</form>
+{% endblock %}

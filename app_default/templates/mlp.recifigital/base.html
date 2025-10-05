@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative; /* necessário para o logout absoluto */
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            width: 100%;
+            max-width: 500px;
+            font-weight: bold;
+            margin: 50px auto 0 auto; /* deixa espaço para o logout no topo */
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .form-container button {
+            padding: 20px;
+            background-color: #000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .form-container button:hover {
+            background-color: #333;
+        }
+
+        /* Botão de logout fixo no topo direito */
+        .logout-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000;
+        }
+
+        .error-message {
+            color: #d9534f;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-container p {
+            margin-top: 20px;
+            font-size: 16px;
+            color: black;
+            font-family: "Gotham-Light", sans-serif;
+        }
+
+        .form-container a {
+            color: #007BFF;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .form-container a:hover {
+            text-decoration: underline;
+        }
+
+        .form-container h2 {
+            padding-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            .form-container input,
+            .form-container button {
+                padding: 15px;
+            }
+
+            .logout-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container input,
+            .form-container button {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .logout-button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+{% if request.session.usuario_id %}
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+{% endif %}
+
+{% block conteudo %}
+{% endblock %}
+</body>
+</html>

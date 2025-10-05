@@ -1,0 +1,82 @@
+{% extends 'mlp.recifigital/base.html' %}
+{% block conteudo %}
+<style>
+    .usuarios-container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: white;
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+        padding: 12px;
+    }
+
+    th {
+        background-color: #f9f9f9;
+    }
+
+    a.botao {
+        text-decoration: none;
+        padding: 8px 14px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 14px;
+        margin-right: 8px;
+    }
+
+    a.excluir { background-color: #d9534f; color: white; }
+    a.aprovar { background-color: #5cb85c; color: white; }
+    a.admin { background-color: #0275d8; color: white; }
+
+    a.botao:hover { opacity: 0.8; }
+</style>
+
+<div class="usuarios-container">
+    <a href="{% url 'registrar' %}">Voltar</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Situação</th>
+            <th>Ações</th>
+        </tr>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.id_usuario }}</td>
+            <td>{{ usuario.nome }}</td>
+            <td>
+                {% if usuario.situacao == 0 %}
+                    Aguardando aprovação
+                {% elif usuario.situacao == 1 %}
+                    Ativo
+                {% elif usuario.situacao == 2 %}
+                    Administrador
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'excluir_usuario' usuario.id_usuario %}" class="botao excluir">Excluir</a>
+
+                {% if request.session.usuario_situacao == 2 and usuario.situacao == 0 %}
+                    <a href="{% url 'aprovar_usuario' usuario.id_usuario %}" class="botao aprovar">Aprovar</a>
+                {% endif %}
+
+                {% if request.session.usuario_situacao == 2 and usuario.situacao != 2 %}
+                    <a href="{% url 'tornar_admin' usuario.id_usuario %}" class="botao admin">Tornar Admin</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

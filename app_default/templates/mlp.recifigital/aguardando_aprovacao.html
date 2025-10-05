@@ -1,0 +1,9 @@
+{% extends 'mlp.recifigital/base.html' %}
+
+{% block conteudo %}
+<div class="form-container">
+    <h2>Sua conta foi criada!</h2>
+    <p>Sua conta foi criada com sucesso, mas ainda está <strong>aguardando aprovação do administrador</strong>.</p>
+    <a href="{% url 'login' %}">Voltar para login</a>
+</div>
+{% endblock %}

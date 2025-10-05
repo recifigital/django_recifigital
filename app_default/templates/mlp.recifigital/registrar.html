@@ -1,0 +1,14 @@
+{% extends 'mlp.recifigital/base.html' %}
+{% block conteudo %}
+    <form action="{% url 'registrar' %}" method="post">
+        {% csrf_token %}
+        <div class="form-container">
+            <h2>Cadastre-se</h2>
+            Nome<input name="nome" type="text">
+            Senha<input name="senha" type="text">
+            <button>ENVIAR</button>
+            <p>já tem uma conta? <a href="{% url 'login' %}">Fazer login</a></p>
+        </div>
+    </form>
+
+{% endblock %}
