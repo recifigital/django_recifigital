@@ -1,0 +1,30 @@
+# Framework principal
+Django==5.0.3
+
+# Banco de dados (SQLite é padrão, mas se usar PostgreSQL ou MySQL, descomente um)
+# psycopg2-binary==2.9.9     # Para PostgreSQL
+# mysqlclient==2.2.4          # Para MySQLMariaDB
+
+# Manipulação de imagens
+Pillow==10.2.0
+
+# Variáveis de ambiente (útil para configs seguras)
+python-dotenv==1.0.1
+
+# Autenticação e senhas
+bcrypt==4.1.3
+
+# Para requisições HTTP (se seu projeto faz chamadas externas)
+requests==2.32.3
+
+# Para deploy com servidores compatíveis (como gunicorn ou daphne)
+gunicorn==23.0.0
+
+# Para segurança e headers HTTP
+django-cors-headers==4.3.1
+
+# Caso use arquivos estáticos no ambiente de produção
+whitenoise==6.6.0
+
+# (Opcional) Django Extensions, se usar comandos extras
+# django-extensions==3.2.3
