@@ -1,28 +1,27 @@
-{% extends 'mlp.recifigital/base.html' %}
+{% extends 'recifigital/base.html' %}
 {% block conteudo %}
 <style>
-    .excluir-container {
+    .admin-container {
         max-width: 500px;
         margin: 50px auto;
         background: white;
         padding: 30px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        font-weight: bold;
         border-radius: 8px;
+        font-weight: bold;
     }
 
-    .excluir-container h2 {
+    .admin-container h2 {
         margin-bottom: 20px;
         font-size: 24px;
     }
 
-    .excluir-container label {
+    .admin-container label {
         display: block;
-        font-weight: bold;
         margin-bottom: 10px;
     }
 
-    .excluir-container input[type="password"] {
+    .admin-container input[type="password"] {
         width: 100%;
         padding: 15px;
         margin-bottom: 20px;
@@ -31,47 +30,44 @@
         font-size: 16px;
     }
 
-    .excluir-container .btn-confirmar {
+    .admin-container button {
         width: 100%;
-        padding: 12px 0;
-        background-color: #d32f2f;
+        padding: 12px;
+        background-color: #0275d8;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         font-weight: bold;
-        margin-bottom: 10px;
-        font-size: 16px;
         transition: background 0.3s;
     }
 
-    .excluir-container .btn-confirmar:hover {
-        background-color: #b71c1c;
+    .admin-container button:hover {
+        background-color: #025aa5;
     }
 
-    .excluir-container .link-cancelar {
+    .admin-container a {
         display: block;
         text-align: center;
-        text-decoration: none;
         color: #555;
-        font-weight: bold;
+        text-decoration: none;
         margin-top: 10px;
+        font-weight: bold;
     }
 
-    .excluir-container .error-message {
+    .error-message {
         color: #d9534f;
         background-color: #f2dede;
         border: 1px solid #ebccd1;
         padding: 12px;
         margin-bottom: 20px;
         border-radius: 4px;
-        font-size: 16px;
         text-align: center;
     }
 </style>
 
-<div class="excluir-container">
-    <h2>Excluir usuário: {{ usuario.nome }}</h2>
+<div class="admin-container">
+    <h2>Tornar {{ usuario.nome }} administrador</h2>
 
     {% if erro %}
         <p class="error-message">{{ erro }}</p>
@@ -82,8 +78,8 @@
         <label>Digite sua senha para confirmar:</label>
         <input type="password" name="senha" required>
 
-        <button type="submit" class="btn-confirmar">Confirmar Exclusão</button>
-        <a href="{% url 'listagem_usuarios' %}" class="link-cancelar">Cancelar</a>
+        <button type="submit">Confirmar</button>
+        <a href="{% url 'listagem_usuarios' %}">Cancelar</a>
     </form>
 </div>
 {% endblock %}
