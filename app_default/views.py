@@ -24,9 +24,9 @@ def registrar(request):
                 )
                 novo_usuario.save()
                 # Mensagem informativa
-                return render(request, 'mlp.recifigital/aguardando_aprovacao.html')
+                return render(request, 'recifigital/aguardando_aprovacao.html')
 
-    return render(request, 'mlp.recifigital/registrar.html', {'erro': mensagem_erro})
+    return render(request, 'recifigital/registrar.html', {'erro': mensagem_erro})
 
 def login(request):
     erro_nome = None
@@ -61,7 +61,7 @@ def login(request):
         except Usuario.DoesNotExist:
             erro_nome = "Usuário não encontrado."
 
-    return render(request, 'mlp.recifigital/login.html', {
+    return render(request, 'recifigital/login.html', {
         'erro_nome': erro_nome,
         'erro_senha': erro_senha
     })
@@ -100,7 +100,7 @@ def adm_obrigatorio(func):
 @adm_obrigatorio
 def lista_usuarios(request):
     usuarios_lista = Usuario.objects.all()
-    return render(request, 'mlp.recifigital/usuarios.html', {'usuarios': usuarios_lista})
+    return render(request, 'recifigital/usuarios.html', {'usuarios': usuarios_lista})
 
 @login_obrigatorio
 def tornar_admin(request, usuario_id):
@@ -125,7 +125,7 @@ def tornar_admin(request, usuario_id):
         else:
             erro = "Senha incorreta. Tente novamente."
 
-    return render(request, 'mlp.recifigital/tornar_admin.html', {'usuario': usuario, 'erro': erro})
+    return render(request, 'recifigital/tornar_admin.html', {'usuario': usuario, 'erro': erro})
 
 @login_obrigatorio
 def aprovar_usuario(request, id_usuario):
@@ -163,7 +163,7 @@ def excluir_usuario(request, usuario_id):
         else:
             erro = "Senha incorreta. Exclusão não realizada."
 
-    return render(request, 'mlp.recifigital/excluir_usuario.html', {
+    return render(request, 'recifigital/excluir_usuario.html', {
         'usuario': usuario_a_excluir,
         'erro': erro
     })
@@ -171,27 +171,27 @@ def excluir_usuario(request, usuario_id):
 @login_obrigatorio
 def home(request):
     usuario_nome = request.session.get('usuario_nome', 'Visitante')
-    return render(request, 'mlp.recifigital/home.html', {'usuario_nome': usuario_nome})
+    return render(request, 'recifigital/home.html', {'usuario_nome': usuario_nome})
 
 @login_obrigatorio
 def escritorio(request):
-    return render(request,'mlp.recifigital/escritorio.html')
+    return render(request,'recifigital/escritorio.html')
 
 @login_obrigatorio
 def projetos(request):
-    return render(request,'mlp.recifigital/projetos.html')
+    return render(request,'recifigital/projetos.html')
 
 @login_obrigatorio
 def recrutamento(request):
-    return render(request,'mlp.recifigital/recrutamento.html')
+    return render(request,'recifigital/recrutamento.html')
 
 @login_obrigatorio
 def noticias(request):
-    return render(request,'mlp.recifigital/noticias.html')
+    return render(request,'recifigital/noticias.html')
 
 @login_obrigatorio
 def privacidade(request):
-    return render(request,'mlp.recifigital/privacidade.html')
+    return render(request,'recifigital/privacidade.html')
 
 def logout(request):
     request.session.flush()
