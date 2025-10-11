@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Usuario
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import PermissionDenied
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 from functools import wraps
@@ -27,6 +28,10 @@ def registrar(request):
                 return render(request, 'recifigital/aguardando_aprovacao.html')
 
     return render(request, 'recifigital/registrar.html', {'erro': mensagem_erro})
+
+def minha_view(request):
+    if not request.user.is_authenticated:
+        raise PermissionDenied  # dispara o 403
 
 def login(request):
     erro_nome = None

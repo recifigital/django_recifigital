@@ -6,6 +6,9 @@ from django.shortcuts import render
 def erro_404(request, exception):
     return render(request, '404.html', status=404)
 
+def erro_403(request, exception):
+    return render(request, '403.html', status=403)
+
 urlpatterns = [
     # rota, view responsável, nome de referência
     # mlp.recifigital.com.br
@@ -26,3 +29,4 @@ urlpatterns = [
 ]
 
 handler404 = erro_404
+handler403 = erro_403
