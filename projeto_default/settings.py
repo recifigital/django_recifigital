@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'app_default' 
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'projeto_mlp.middleware.AdminPermissionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware', 
     'django.middleware.csrf.CsrfViewMiddleware',
