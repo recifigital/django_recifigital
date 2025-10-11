@@ -94,11 +94,18 @@ def adm_obrigatorio(func):
     def wrapper(request, *args, **kwargs):
         usuario_id = request.session.get('usuario_id')
         if not usuario_id:
+            # Usuário não logado -> pode redirecionar para login
+            from django.shortcuts import redirect
             return redirect('login')
         
-        usuario = Usuario.objects.get(id_usuario=usuario_id)
+        try:
+            usuario = Usuario.objects.get(id_usuario=usuario_id)
+        except Usuario.DoesNotExist:
+            # Se o usuário não existir, também negamos acesso
+            raise PermissionDenied
+        
         if usuario.situacao != 2:  # Apenas ADM
-            return redirect('home')  # Ou outra página de acesso negado
+            raise PermissionDenied  # Aqui disparo o 403
         return func(request, *args, **kwargs)
     return wrapper
 
