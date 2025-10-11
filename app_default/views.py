@@ -72,41 +72,43 @@ def login(request):
     })
 
 def login_obrigatorio(func):
+    @wraps(func)
     def wrapper(request, *args, **kwargs):
         usuario_id = request.session.get('usuario_id')
         if not usuario_id:
-            return redirect('login')  # não está logado
+            raise PermissionDenied  # não logado
 
         try:
             usuario = Usuario.objects.get(id_usuario=usuario_id)
         except Usuario.DoesNotExist:
-            return redirect('login')  # usuário não existe
+            raise PermissionDenied  # usuário não existe
 
-        # permite apenas situacao 1 (ativo) ou 2 (ADM)
+        # permite apenas situação 1 (ativo) ou 2 (ADM)
         if usuario.situacao not in [1, 2]:
-            return redirect('login')  # ainda não aprovado ou bloqueado
+            raise PermissionDenied  # ainda não aprovado ou bloqueado
 
         return func(request, *args, **kwargs)
+
     return wrapper
+
 
 def adm_obrigatorio(func):
     @wraps(func)
     def wrapper(request, *args, **kwargs):
         usuario_id = request.session.get('usuario_id')
         if not usuario_id:
-            # Usuário não logado -> pode redirecionar para login
-            from django.shortcuts import redirect
-            return redirect('login')
-        
+            raise PermissionDenied  # não logado
+
         try:
             usuario = Usuario.objects.get(id_usuario=usuario_id)
         except Usuario.DoesNotExist:
-            # Se o usuário não existir, também negamos acesso
-            raise PermissionDenied
-        
-        if usuario.situacao != 2:  # Apenas ADM
-            raise PermissionDenied  # Aqui disparo o 403
+            raise PermissionDenied  # usuário não existe
+
+        if usuario.situacao != 2:
+            raise PermissionDenied  # não é ADM
+
         return func(request, *args, **kwargs)
+
     return wrapper
 
 @adm_obrigatorio
